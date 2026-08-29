@@ -1,6 +1,7 @@
 import "server-only";
 
 import { ARTIST_COUNT } from "@/lib/domain/constants";
+import { supabaseHost } from "@/lib/env";
 import { createSupabasePublicClient } from "@/lib/supabase/public";
 import type { ServiceRow, TattooArtistRow } from "@/types/database";
 
@@ -11,6 +12,27 @@ import type { ServiceRow, TattooArtistRow } from "@/types/database";
  * Components durante a renderização. Marcá-las com `"use server"` criaria
  * endpoints POST públicos sem necessidade nenhuma.
  */
+
+/**
+ * Traduz a falha do PostgREST em algo sobre o que se possa agir.
+ *
+ * "fetch failed" sozinho não diz nada, e é o que aparece no log do deploy
+ * quando a URL está malformada. Nomear o host que foi tentado separa, em uma
+ * olhada, os três casos que acontecem de verdade: endereço errado na variável
+ * de ambiente, projeto Supabase pausado, ou policy de RLS recusando.
+ */
+function falhaDeCatalogo(oQue: string, mensagem: string): Error {
+  const inalcancavel = mensagem.toLowerCase().includes("fetch failed");
+
+  const dica = inalcancavel
+    ? ` Não foi possível alcançar ${supabaseHost()}: confira NEXT_PUBLIC_SUPABASE_URL` +
+      ` e se o projeto no Supabase não está pausado.`
+    : "";
+
+  return new Error(
+    `Falha ao carregar ${oQue} de ${supabaseHost()}: ${mensagem}.${dica}`,
+  );
+}
 
 /** Os serviços ativos, na ordem em que o estúdio quer exibi-los. */
 export async function getServices(): Promise<ServiceRow[]> {
@@ -23,7 +45,7 @@ export async function getServices(): Promise<ServiceRow[]> {
     .order("display_order", { ascending: true });
 
   if (error) {
-    throw new Error(`Falha ao carregar os serviços: ${error.message}`);
+    throw falhaDeCatalogo("os serviços", error.message);
   }
 
   return data ?? [];
@@ -40,7 +62,7 @@ export async function getArtists(): Promise<TattooArtistRow[]> {
     .order("display_order", { ascending: true });
 
   if (error) {
-    throw new Error(`Falha ao carregar os tatuadores: ${error.message}`);
+    throw falhaDeCatalogo("os tatuadores", error.message);
   }
 
   return (data ?? []).slice(0, ARTIST_COUNT);
