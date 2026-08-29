@@ -1,0 +1,191 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/*
+ * Dark Ink Studio — design tokens
+ * Paleta fixada no BLOCO 0. Os HEX vêm do briefing e não podem ser alterados.
+ * Única adição: --gold-ink, o dourado legível como texto (ver docs/BLOCO-0).
+ */
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  color-scheme: light;
+
+  /* ── Fundos ───────────────────────────────── */
+  --bg: #faf7f2;
+  --surface: #f3efe8;
+  --raised: #ebe5da;
+
+  /* ── Dourado ──────────────────────────────── */
+  --gold: #c9a75c;
+  --gold-deep: #b8943c;
+  --gold-soft: #f2ecd8;
+  --gold-ink: #7a5f1e; /* 5,64:1 — dourado quando precisa ser TEXTO */
+
+  /* ── Tinta ────────────────────────────────── */
+  --ink: #2d2a24;
+  --ink-muted: #6b6770;
+  --ink-faint: #a5a09a; /* 2,43:1 — traço e disabled. NUNCA texto de leitura */
+
+  /* ── Estrutura e estados ──────────────────── */
+  --line: #e3dcd2;
+  --success: #2b7a4b;
+  --danger: #b13a4a;
+
+  /* ── Mapeamento shadcn/ui ─────────────────── */
+  --background: var(--bg);
+  --foreground: var(--ink);
+  --card: var(--surface);
+  --card-foreground: var(--ink);
+  --popover: var(--bg);
+  --popover-foreground: var(--ink);
+  --primary: var(--gold);
+  --primary-foreground: var(--ink); /* tinta sobre ouro: 6,24:1. Branco daria 2,29:1 */
+  --secondary: var(--surface);
+  --secondary-foreground: var(--ink);
+  --muted: var(--surface);
+  --muted-foreground: var(--ink-muted);
+  --accent: var(--raised);
+  --accent-foreground: var(--ink);
+  --destructive: var(--danger);
+  --destructive-foreground: #ffffff;
+  --border: var(--line);
+  --input: var(--line);
+  --ring: var(--gold-deep);
+  --radius: 0.25rem;
+
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-cormorant), ui-serif, Georgia, serif;
+}
+
+@theme inline {
+  /* Cores da marca, disponíveis como bg-*, text-*, border-* */
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-raised: var(--raised);
+  --color-gold: var(--gold);
+  --color-gold-deep: var(--gold-deep);
+  --color-gold-soft: var(--gold-soft);
+  --color-gold-ink: var(--gold-ink);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-faint: var(--ink-faint);
+  --color-line: var(--line);
+  --color-success: var(--success);
+  --color-danger: var(--danger);
+
+  /* Contrato shadcn */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) * 2);
+  --radius-xl: calc(var(--radius) * 3);
+
+  /* Tipografia */
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+
+  /* Escala 1.25 sobre base 16px (BLOCO 0 §3.4) */
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.5;
+  --text-sm: 0.875rem;
+  --text-sm--line-height: 1.6;
+  --text-base: 1rem;
+  --text-base--line-height: 1.6;
+  --text-lg: 1.25rem;
+  --text-lg--line-height: 1.5;
+  --text-xl: 1.5625rem;
+  --text-xl--line-height: 1.35;
+  --text-2xl: 1.9531rem;
+  --text-2xl--line-height: 1.25;
+  --text-3xl: 2.4414rem;
+  --text-3xl--line-height: 1.15;
+  --text-4xl: 3.0518rem;
+  --text-4xl--line-height: 1.08;
+  --text-5xl: 3.8147rem;
+  --text-5xl--line-height: 1.02;
+  --text-6xl: 4.7684rem;
+  --text-6xl--line-height: 0.98;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply font-sans;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-bg text-ink;
+  }
+
+  ::selection {
+    background: var(--gold-soft);
+    color: var(--ink);
+  }
+
+  /* Foco visível em toda a interface, sem exceção */
+  :focus-visible {
+    outline: 2px solid var(--gold-deep);
+    outline-offset: 2px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+    letter-spacing: -0.02em;
+    font-weight: 300;
+  }
+}
+
+@layer components {
+  /* Horários e preços alinham em coluna — evita a terceira família tipográfica */
+  .numeric {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.01em;
+  }
+
+  /* Rótulo de seção: versalete espaçado, no dourado legível */
+  .eyebrow {
+    @apply text-xs uppercase text-gold-ink;
+    letter-spacing: 0.18em;
+    font-weight: 500;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
