@@ -177,6 +177,82 @@
     letter-spacing: 0.18em;
     font-weight: 500;
   }
+
+  /* ── A Ficha do Estúdio ────────────────────────────────────────────────
+     O elemento-assinatura. Um estúdio de tatuagem trabalha com uma ficha de
+     sessão em papel; esta é a versão em tela do mesmo objeto, e reaparece na
+     confirmação, na agenda do admin e no PDF. */
+  .ficha {
+    background-color: var(--bg);
+    border: 1px solid var(--line);
+    position: relative;
+  }
+
+  /* O picote: linha tracejada com os dois furos laterais recortados. É o que
+     faz a ficha ler como papel destacável, e não como um card qualquer. */
+  .ficha-picote {
+    position: relative;
+    border-top: 1px dashed var(--line);
+  }
+
+  .ficha-picote::before,
+  .ficha-picote::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: var(--bg-ambiente, var(--surface));
+    border: 1px solid var(--line);
+    transform: translateY(-50%);
+  }
+
+  .ficha-picote::before {
+    left: 0;
+    transform: translate(-50%, -50%);
+    clip-path: inset(0 0 0 50%);
+  }
+
+  .ficha-picote::after {
+    right: 0;
+    transform: translate(50%, -50%);
+    clip-path: inset(0 50% 0 0);
+  }
+
+  /* Linha da ficha: rótulo à esquerda, valor à direita, pontilhado no meio. */
+  .ficha-linha {
+    @apply flex items-baseline gap-3 text-sm;
+  }
+
+  .ficha-linha > dt {
+    @apply shrink-0 text-ink-muted;
+  }
+
+  .ficha-linha > .preenchimento {
+    @apply min-w-4 flex-1 translate-y-[-3px] border-b border-dotted border-line;
+  }
+
+  .ficha-linha > dd {
+    @apply shrink-0 text-right text-ink;
+  }
+}
+
+/* Revelação do hero: uma sequência orquestrada, uma vez, na entrada.
+   Nada de parallax nem de reveals a cada scroll. */
+@keyframes subir {
+  from {
+    opacity: 0;
+    transform: translateY(0.6em);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.revelar {
+  animation: subir 0.9s cubic-bezier(0.16, 1, 0.3, 1) backwards;
 }
 
 @media (prefers-reduced-motion: reduce) {
