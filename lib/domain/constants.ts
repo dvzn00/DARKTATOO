@@ -43,3 +43,13 @@ export const BLOCKING_STATUSES: readonly AppointmentStatus[] = [
 export const SERVICE_DURATIONS = [60, 90, 120] as const;
 
 export type ServiceDuration = (typeof SERVICE_DURATIONS)[number];
+
+/**
+ * Quantos agendamentos ativos (pendentes ou confirmados) um mesmo e-mail pode
+ * ter em aberto.
+ *
+ * O agendamento é público e sem login: sem nenhum limite, um script encheria a
+ * agenda das duas cadeiras em segundos. Três é folgado para um cliente real e
+ * apertado para abuso.
+ */
+export const MAX_ACTIVE_PER_EMAIL = 3;

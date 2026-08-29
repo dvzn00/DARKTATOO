@@ -16,7 +16,7 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[];
 
-export interface ProfileRow {
+export type ProfileRow = {
   id: string;
   email: string;
   name: string | null;
@@ -24,7 +24,7 @@ export interface ProfileRow {
   created_at: string;
 }
 
-export interface TattooArtistRow {
+export type TattooArtistRow = {
   id: string;
   name: string;
   specialty: string;
@@ -36,7 +36,7 @@ export interface TattooArtistRow {
   created_at: string;
 }
 
-export interface ServiceRow {
+export type ServiceRow = {
   id: string;
   name: string;
   description: string;
@@ -48,7 +48,7 @@ export interface ServiceRow {
   created_at: string;
 }
 
-export interface AppointmentRow {
+export type AppointmentRow = {
   id: string;
   public_token: string;
   client_name: string;
@@ -84,7 +84,8 @@ export type AppointmentInsert = Pick<
 > &
   Partial<Pick<AppointmentRow, "reference_image_url" | "notes" | "status">>;
 
-export interface Database {
+export type Database = {
+  __InternalSupabase: { PostgrestVersion: "12" };
   public: {
     Tables: {
       profiles: {
@@ -117,9 +118,9 @@ export interface Database {
         Relationships: [];
       };
     };
-    Views: Record<never, never>;
-    Functions: Record<never, never>;
-    Enums: Record<never, never>;
-    CompositeTypes: Record<never, never>;
+    Views: { [_ in never]: never };
+    Functions: { [_ in never]: never };
+    Enums: { [_ in never]: never };
+    CompositeTypes: { [_ in never]: never };
   };
 }

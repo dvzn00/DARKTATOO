@@ -81,8 +81,7 @@ export function validateBooking(
   // 1 — forma
   const parsed = bookingInputSchema.safeParse(input);
   if (!parsed.success) {
-    const { fieldErrors } = collectFieldErrors(parsed.error);
-    return fail("INVALID_INPUT", fieldErrors);
+    return fail("INVALID_INPUT", fieldErrorsFrom(parsed.error.issues));
   }
   const booking = parsed.data;
 
@@ -140,15 +139,14 @@ export function validateBooking(
 }
 
 /** Achata os erros do Zod no formato que o formulário consome. */
-function collectFieldErrors(error: {
-  issues: ReadonlyArray<{ path: PropertyKey[]; message: string }>;
-}): { fieldErrors: Record<string, string[]> } {
+export function fieldErrorsFrom(
+  issues: ReadonlyArray<{ path: PropertyKey[]; message: string }>,
+): Record<string, string[]> {
   const fieldErrors: Record<string, string[]> = {};
-
-  for (const issue of error.issues) {
+  for (const issue of issues) {
     const field = issue.path.length > 0 ? String(issue.path[0]) : "_form";
     (fieldErrors[field] ??= []).push(issue.message);
   }
-
-  return { fieldErrors };
+  return fieldErrors;
 }
+
