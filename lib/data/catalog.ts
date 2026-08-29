@@ -22,12 +22,20 @@ import type { ServiceRow, TattooArtistRow } from "@/types/database";
  * de ambiente, projeto Supabase pausado, ou policy de RLS recusando.
  */
 function falhaDeCatalogo(oQue: string, mensagem: string): Error {
-  const inalcancavel = mensagem.toLowerCase().includes("fetch failed");
+  const texto = mensagem.toLowerCase();
 
-  const dica = inalcancavel
-    ? ` Não foi possível alcançar ${supabaseHost()}: confira NEXT_PUBLIC_SUPABASE_URL` +
-      ` e se o projeto no Supabase não está pausado.`
-    : "";
+  let dica = "";
+
+  if (texto.includes("fetch failed")) {
+    dica =
+      ` Não foi possível alcançar ${supabaseHost()}: confira` +
+      ` NEXT_PUBLIC_SUPABASE_URL e se o projeto no Supabase não está pausado.`;
+  } else if (texto.includes("api key") || texto.includes("jwt")) {
+    dica =
+      ` O endereço está certo, então o problema é a chave: confira` +
+      ` NEXT_PUBLIC_SUPABASE_ANON_KEY em Project Settings › API Keys.` +
+      ` Ela precisa ser a chave publicável do MESMO projeto, copiada inteira.`;
+  }
 
   return new Error(
     `Falha ao carregar ${oQue} de ${supabaseHost()}: ${mensagem}.${dica}`,
