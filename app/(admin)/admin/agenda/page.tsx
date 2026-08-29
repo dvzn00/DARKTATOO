@@ -47,7 +47,7 @@ export default async function AgendaPage({ searchParams }: Props) {
     <div className="mx-auto w-full max-w-6xl px-6 py-12 sm:px-8">
       <div className="flex flex-wrap items-end justify-between gap-6">
         <div>
-          <h1 className="text-2xl capitalize text-ink md:text-3xl">
+          <h1 className="text-2xl text-ink first-letter:uppercase md:text-3xl">
             {formatDateLong(data)}
           </h1>
           <p className="mt-2 text-sm text-ink-muted">
@@ -87,7 +87,7 @@ export default async function AgendaPage({ searchParams }: Props) {
             Hoje
           </Link>
         ) : (
-          <span className="text-sm text-ink-faint">Hoje</span>
+          <span className="text-sm text-ink-muted">Hoje</span>
         )}
         <Link
           href={paraLink(addDays(data, 1), artistaSelecionado)}

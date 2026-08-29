@@ -170,7 +170,7 @@ function Campo({
   const temErro = Boolean(erros?.length);
 
   const classes = cn(
-    "w-full border bg-bg px-4 py-3 text-sm text-ink transition-colors placeholder:text-ink-faint",
+    "w-full border bg-bg px-4 py-3 text-sm text-ink transition-colors placeholder:text-ink-muted",
     temErro ? "border-danger" : "border-line focus:border-gold-deep",
   );
 
@@ -179,7 +179,7 @@ function Campo({
       <label htmlFor={id} className="block text-sm text-ink">
         {rotulo}
         {!obrigatorio ? (
-          <span className="ml-2 text-xs text-ink-faint">opcional</span>
+          <span className="ml-2 text-xs text-ink-muted">opcional</span>
         ) : null}
       </label>
 

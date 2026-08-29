@@ -186,6 +186,7 @@ export function PassoHorario({
             <li key={slot.start}>
               <Link
                 href={href({ ...params, time: slot.start })}
+                prefetch={false}
                 className={cn(
                   "numeric flex flex-col items-center border bg-bg px-3 py-4 transition-colors",
                   params.time === slot.start

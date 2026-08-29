@@ -11,6 +11,7 @@ import {
 } from "@/components/shared/ficha";
 import { StatusBadge } from "@/components/shared/ui-bits";
 import { getAppointmentByToken } from "@/lib/data/appointments";
+import { formatPhone } from "@/lib/domain/phone";
 import { formatDateLong, formatTimeRange } from "@/lib/domain/time";
 
 export const metadata: Metadata = {
@@ -25,13 +26,6 @@ const MOEDA = new Intl.NumberFormat("pt-BR", {
   currency: "BRL",
   maximumFractionDigits: 0,
 });
-
-function formatarTelefone(digitos: string): string {
-  const d = digitos.replace(/\D/g, "");
-  if (d.length === 11) return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
-  if (d.length === 10) return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
-  return digitos;
-}
 
 /**
  * A confirmação: a ficha em tamanho real.
@@ -57,7 +51,7 @@ export default async function ConfirmacaoPage({
   return (
     <div className="flex min-h-full flex-1 flex-col bg-surface">
       <header className="border-b border-line bg-bg">
-        <div className="mx-auto flex h-16 w-full max-w-6xl items-center px-6 sm:px-8">
+        <div className="mx-auto flex h-16 w-full max-w-lg items-center px-6 sm:px-8">
           <Link href="/" className="font-display text-lg text-ink">
             DARK INK
           </Link>
@@ -98,11 +92,11 @@ export default async function ConfirmacaoPage({
           <div className="flex items-start justify-between px-6 pb-5 pt-6">
             <div>
               <p className="eyebrow">Ficha de sessão</p>
-              <p className="numeric mt-2 text-sm text-ink-faint">
+              <p className="numeric mt-2 text-sm text-ink-muted">
                 {numeroDaFicha(agendamento.public_token)}
               </p>
             </div>
-            <StatusBadge status={agendamento.status} />
+            {confirmado ? null : <StatusBadge status={agendamento.status} />}
           </div>
 
           <FichaPicote />
@@ -136,7 +130,7 @@ export default async function ConfirmacaoPage({
             <FichaLinha rotulo="E-mail" valor={agendamento.client_email} />
             <FichaLinha
               rotulo="Telefone"
-              valor={formatarTelefone(agendamento.client_phone)}
+              valor={formatPhone(agendamento.client_phone)}
               numerico
             />
           </dl>
@@ -153,13 +147,13 @@ export default async function ConfirmacaoPage({
           ) : null}
 
           <div className="border-t border-line px-6 py-5">
-            <div className="ficha-linha">
+            <dl className="ficha-linha">
               <dt className="text-ink">A partir de</dt>
               <span className="preenchimento" aria-hidden />
               <dd className="numeric text-lg text-gold-ink">
                 {MOEDA.format(agendamento.price_snapshot)}
               </dd>
-            </div>
+            </dl>
           </div>
         </Ficha>
 

@@ -53,7 +53,7 @@ export function Artistas({ artistas }: { artistas: TattooArtistRow[] }) {
             key={artista.id}
             className="group border border-line bg-bg transition-colors hover:border-gold-deep"
           >
-            <div className="relative aspect-[4/5] overflow-hidden bg-surface">
+            <div className="relative aspect-[4/3] overflow-hidden bg-surface">
               <Image
                 src={artista.profile_picture_url}
                 alt={`Retrato de ${artista.name}`}
@@ -183,7 +183,7 @@ export function Depoimentos() {
             </blockquote>
             <figcaption className="text-sm text-ink-muted md:col-span-3 md:col-start-10 md:text-right">
               {depoimento.autor}
-              <span className="mt-1 block text-ink-faint">
+              <span className="mt-1 block text-ink-muted">
                 {depoimento.contexto}
               </span>
             </figcaption>

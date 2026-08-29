@@ -352,6 +352,13 @@ grant select on public.tattoo_artists to anon, authenticated;
 grant insert, update, delete on public.services       to authenticated;
 grant insert, update, delete on public.tattoo_artists to authenticated;
 
+-- O Supabase concede privilegios amplos por padrao a anon em tabelas novas do
+-- schema public. Sem este revoke, uma tentativa de escrita do papel publico e
+-- barrada apenas pela RLS -- que recusa em silencio, com "0 linhas afetadas".
+-- Retirando o privilegio, a mesma tentativa falha alto, com 42501.
+revoke insert, update, delete on public.services       from anon;
+revoke insert, update, delete on public.tattoo_artists from anon;
+
 grant select on public.profiles to authenticated;
 
 -- appointments: o papel público não recebe absolutamente nada.

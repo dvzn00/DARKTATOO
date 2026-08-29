@@ -6,6 +6,7 @@ import {
   View,
 } from "@react-pdf/renderer";
 
+import { formatPhone } from "@/lib/domain/phone";
 import { formatDateLong, trimSeconds } from "@/lib/domain/time";
 import { STATUS_LABELS } from "@/lib/domain/status";
 import type { AppointmentWithRelations } from "@/types/domain";
@@ -144,17 +145,6 @@ export interface DailyReportProps {
   generatedAt: string;
 }
 
-function formatarTelefone(digitos: string): string {
-  const d = digitos.replace(/\D/g, "");
-  if (d.length === 11) {
-    return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
-  }
-  if (d.length === 10) {
-    return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
-  }
-  return digitos;
-}
-
 export function DailyReport({
   date,
   appointments,
@@ -212,7 +202,7 @@ export function DailyReport({
                 <View style={estilos.colCliente}>
                   <Text style={estilos.nome}>{item.client_name}</Text>
                   <Text style={estilos.contato}>
-                    {formatarTelefone(item.client_phone)}
+                    {formatPhone(item.client_phone)}
                   </Text>
                   <Text style={estilos.contato}>{item.client_email}</Text>
                   {item.notes ? (

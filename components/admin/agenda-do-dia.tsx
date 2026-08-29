@@ -8,16 +8,10 @@ import {
   OPENING_TIME,
   SLOT_STEP_MINUTES,
 } from "@/lib/domain/constants";
+import { formatPhone, telHref } from "@/lib/domain/phone";
 import { toMinutes, toTimeString, trimSeconds } from "@/lib/domain/time";
 import { cn } from "@/lib/utils";
 import type { AppointmentWithRelations } from "@/types/domain";
-
-function formatarTelefone(digitos: string): string {
-  const d = digitos.replace(/\D/g, "");
-  if (d.length === 11) return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
-  if (d.length === 10) return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
-  return digitos;
-}
 
 /**
  * A agenda como uma coluna contínua de horas, das 10h às 20h.
@@ -67,7 +61,7 @@ export function AgendaDoDia({
             <span
               className={cn(
                 "numeric pt-1 text-sm",
-                naHora.length > 0 ? "text-ink" : "text-ink-faint",
+                naHora.length > 0 ? "text-ink" : "text-ink-muted",
               )}
             >
               {toTimeString(minuto)}
@@ -79,7 +73,7 @@ export function AgendaDoDia({
               ))}
 
               {naHora.length === 0 ? (
-                <p className="pt-1 text-sm text-ink-faint">
+                <p className="pt-1 text-sm text-ink-muted">
                   {ocupadaPorSessaoLonga ? "— em sessão —" : "— livre —"}
                 </p>
               ) : null}
@@ -101,7 +95,7 @@ function CardAgendamento({
   return (
     <Ficha
       className={cn(
-        "[--bg-ambiente:var(--bg)]",
+        "max-w-2xl [--bg-ambiente:var(--bg)]",
         cancelado && "opacity-60",
         agendamento.status === "pending" && "border-gold-deep",
       )}
@@ -135,10 +129,10 @@ function CardAgendamento({
 
         <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm text-ink-muted">
           <a
-            href={`tel:${agendamento.client_phone}`}
+            href={telHref(agendamento.client_phone)}
             className="numeric underline-offset-4 hover:text-ink hover:underline"
           >
-            {formatarTelefone(agendamento.client_phone)}
+            {formatPhone(agendamento.client_phone)}
           </a>
           <a
             href={`mailto:${agendamento.client_email}`}

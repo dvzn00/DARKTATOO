@@ -42,7 +42,7 @@ export default async function LoginPage({
           <LoginForm proximo={proximo} />
         </div>
 
-        <p className="mt-10 text-xs text-ink-faint">
+        <p className="mt-10 text-xs text-ink-muted">
           Esta área é do estúdio. Para marcar uma sessão,{" "}
           <Link
             href="/agendar"

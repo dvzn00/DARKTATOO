@@ -20,7 +20,7 @@ export function Secao({
     <section
       id={id}
       className={cn(
-        "px-6 py-24 sm:px-8 md:py-32",
+        "px-6 py-20 sm:px-8 md:py-28",
         fundo === "surface" && "bg-surface",
         className,
       )}
@@ -50,9 +50,9 @@ export function TituloSecao({
 
 const ESTILO_STATUS: Record<AppointmentStatus, string> = {
   pending: "border-gold-deep bg-gold-soft text-gold-ink",
-  confirmed: "border-success/30 bg-success/10 text-success",
+  confirmed: "border-success/40 bg-success/10 text-success-ink",
   completed: "border-line bg-surface text-ink-muted",
-  cancelled: "border-line bg-transparent text-ink-faint line-through",
+  cancelled: "border-line bg-transparent text-ink-muted line-through",
 };
 
 export function StatusBadge({

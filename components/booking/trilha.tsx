@@ -40,7 +40,7 @@ export function Trilha({
                   "text-xs",
                   ativa && "font-medium text-ink",
                   concluida && "text-gold-ink",
-                  !ativa && !concluida && "text-ink-faint",
+                  !ativa && !concluida && "text-ink-muted",
                 )}
               >
                 {passo.rotulo}

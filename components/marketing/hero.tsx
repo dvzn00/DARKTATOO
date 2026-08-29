@@ -12,13 +12,13 @@ import Link from "next/link";
  */
 export function Hero() {
   return (
-    <section className="px-6 pb-20 pt-24 sm:px-8 md:pb-28 md:pt-36">
+    <section className="px-6 pb-12 pt-24 sm:px-8 md:pb-16 md:pt-36">
       <div className="mx-auto w-full max-w-6xl">
         <p className="eyebrow revelar" style={{ animationDelay: "0ms" }}>
           São Paulo · desde 2016
         </p>
 
-        <h1 className="mt-8 text-4xl text-ink sm:text-5xl lg:text-6xl">
+        <h1 className="mt-8 text-4xl text-ink sm:text-5xl lg:text-6xl xl:text-7xl">
           <span
             className="revelar block"
             style={{ animationDelay: "90ms" }}
@@ -34,7 +34,7 @@ export function Hero() {
         </h1>
 
         <p
-          className="revelar mt-9 max-w-md text-base leading-relaxed text-ink-muted"
+          className="revelar mt-10 max-w-lg text-base leading-relaxed text-ink-muted md:text-lg"
           style={{ animationDelay: "300ms" }}
         >
           Duas cadeiras, dois artistas, uma agenda aberta com 40 dias. Você
@@ -61,7 +61,7 @@ export function Hero() {
         </div>
 
         <hr
-          className="revelar mt-20 border-0 border-t border-gold"
+          className="revelar mt-16 border-0 border-t border-gold"
           style={{ animationDelay: "520ms" }}
         />
       </div>

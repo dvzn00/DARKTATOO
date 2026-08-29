@@ -58,14 +58,14 @@ export function FichaAgendamento({
       </dl>
 
       <div className="border-t border-line px-6 py-5">
-        <div className="ficha-linha">
+        <dl className="ficha-linha">
           <dt className="text-ink">A partir de</dt>
           <span className="preenchimento" aria-hidden />
           <dd className="numeric text-lg text-gold-ink">
             {servico ? MOEDA.format(Number(servico.price)) : "—"}
           </dd>
-        </div>
-        <p className="mt-3 text-xs leading-relaxed text-ink-faint">
+        </dl>
+        <p className="mt-3 text-xs leading-relaxed text-ink-muted">
           O valor final é fechado na conversa, conforme tamanho e região.
         </p>
       </div>

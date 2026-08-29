@@ -32,6 +32,9 @@
   /* ── Estrutura e estados ──────────────────── */
   --line: #e3dcd2;
   --success: #2b7a4b;
+  /* Mesma lógica do --gold-ink: o verde quando ele precisa ser TEXTO sobre um
+     fundo já tingido de verde. #2B7A4B ali dá 4,34:1 e reprova. */
+  --success-ink: #1f5c38;
   --danger: #b13a4a;
 
   /* ── Mapeamento shadcn/ui ─────────────────── */
@@ -74,6 +77,7 @@
   --color-ink-faint: var(--ink-faint);
   --color-line: var(--line);
   --color-success: var(--success);
+  --color-success-ink: var(--success-ink);
   --color-danger: var(--danger);
 
   /* Contrato shadcn */
@@ -127,6 +131,8 @@
   --text-5xl--line-height: 1.02;
   --text-6xl: 4.7684rem;
   --text-6xl--line-height: 0.98;
+  --text-7xl: 5.9605rem;
+  --text-7xl--line-height: 0.95;
 }
 
 @layer base {

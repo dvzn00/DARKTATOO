@@ -1,7 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" role="img" aria-label="Retrato provisório de Caio Veríssimo">
   <rect width="400" height="500" fill="#F3EFE8"/>
-  <rect x="24" y="24" width="352" height="452" fill="none" stroke="#E3DCD2" stroke-width="1"/>
-  <line x1="24" y1="392" x2="376" y2="392" stroke="#C9A75C" stroke-width="1"/>
-  <text x="200" y="270" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="132" font-weight="300" fill="#2D2A24" letter-spacing="6">CV</text>
-  <text x="200" y="432" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="12" fill="#7A5F1E" letter-spacing="4">RETRATO PROVISÓRIO</text>
+  <text x="200" y="248" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="76" font-weight="300" fill="#A5A09A" letter-spacing="4">CV</text>
+  <line x1="170" y1="278" x2="230" y2="278" stroke="#E3DCD2" stroke-width="1"/>
+  <text x="200" y="302" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="9" fill="#A5A09A" letter-spacing="3">RETRATO PROVISÓRIO</text>
 </svg>

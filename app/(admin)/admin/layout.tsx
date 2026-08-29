@@ -35,7 +35,7 @@ export default async function AdminLayout({
             <Link href="/admin" className="font-display text-lg text-ink">
               DARK INK
             </Link>
-            <span className="hidden text-sm capitalize text-ink-muted sm:inline">
+            <span className="hidden text-sm text-ink-muted first-letter:uppercase sm:inline">
               {formatDateLong(hoje)}
             </span>
           </div>
@@ -73,7 +73,7 @@ export default async function AdminLayout({
       </main>
 
       <footer className="border-t border-line px-6 py-5 sm:px-8">
-        <p className="mx-auto w-full max-w-6xl text-xs text-ink-faint">
+        <p className="mx-auto w-full max-w-6xl text-xs text-ink-muted">
           {session.email} · horários no fuso de {STUDIO_TIMEZONE}
         </p>
       </footer>

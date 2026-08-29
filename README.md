@@ -57,6 +57,15 @@ npm run dev
 | `npm run typecheck` | `tsc --noEmit` |
 | `npm test` | testes unitários (Vitest) |
 | `npm run db:check` | executa `supabase/setup.sql` em um Postgres real (PGlite) e verifica constraints, triggers e idempotência |
+| `npm run qa:a11y` | audita as páginas públicas com axe-core (WCAG 2.1 A/AA) contra um servidor já rodando |
+
+### Auditoria de acessibilidade
+
+```bash
+npx playwright install chromium   # uma vez
+npm run build && npm start        # em outro terminal
+npm run qa:a11y                   # ou QA_BASE_URL=http://localhost:3333 npm run qa:a11y
+```
 
 ## Como está organizado
 

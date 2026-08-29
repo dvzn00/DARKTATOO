@@ -82,7 +82,7 @@ export function SiteFooter() {
             <li>
               <Link
                 href="/login"
-                className="text-sm text-ink-faint transition-colors hover:text-ink"
+                className="text-sm text-ink-muted transition-colors hover:text-ink"
               >
                 Área do estúdio
               </Link>
@@ -93,7 +93,7 @@ export function SiteFooter() {
 
       {/* Honestidade sobre o que este site é. Ver docs/BLOCO-0, decisão D5. */}
       <div className="mx-auto mt-12 w-full max-w-6xl border-t border-line pt-6">
-        <p className="max-w-2xl text-xs leading-relaxed text-ink-faint">
+        <p className="max-w-2xl text-xs leading-relaxed text-ink-muted">
           Projeto de demonstração. Dark Ink Studio é um estúdio fictício —
           artistas, serviços, preços, depoimentos e endereço são conteúdo de
           exemplo e não descrevem pessoas ou negócios reais.

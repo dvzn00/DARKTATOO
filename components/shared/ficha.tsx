@@ -35,7 +35,7 @@ export function FichaCabecalho({
   return (
     <div className={cn("px-6 pb-5 pt-6", className)}>
       <p className="eyebrow">{titulo}</p>
-      <p className="numeric mt-2 text-sm text-ink-faint">{numero}</p>
+      <p className="numeric mt-2 text-sm text-ink-muted">{numero}</p>
     </div>
   );
 }

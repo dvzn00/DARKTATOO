@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { TituloPasso } from "@/components/booking/passos";
 import { href, type BookingParams } from "@/lib/booking-url";
-import { addDays, weekdayOf } from "@/lib/domain/time";
+import { addDays, formatDateLong, weekdayOf } from "@/lib/domain/time";
 import { cn } from "@/lib/utils";
 
 const DIAS_DA_SEMANA = ["D", "S", "T", "Q", "Q", "S", "S"] as const;
@@ -10,8 +10,8 @@ const DIAS_DA_SEMANA = ["D", "S", "T", "Q", "Q", "S", "S"] as const;
 interface Mes {
   chave: string;
   rotulo: string;
-  /** 42 posições: `null` onde não há dia neste mês. */
-  celulas: (string | null)[];
+  /** Semanas de 7 dias; `null` onde não há dia dentro do intervalo. */
+  semanas: (string | null)[][];
 }
 
 /**
@@ -40,6 +40,14 @@ function montarMeses(primeiroDia: string, ultimoDia: string): Mes[] {
       celulas[deslocamento + numeroDoDia - 1] = dia;
     }
 
+    // Sem isto, o primeiro mês do intervalo desenha as semanas anteriores ao
+    // dia de hoje como um bloco vazio de altura enorme antes do primeiro dia.
+    const semanas: (string | null)[][] = [];
+    for (let inicio = 0; inicio < celulas.length; inicio += 7) {
+      const semana = celulas.slice(inicio, inicio + 7);
+      if (semana.some(Boolean)) semanas.push(semana);
+    }
+
     const [ano, mes] = chave.split("-").map(Number);
     const rotulo = new Intl.DateTimeFormat("pt-BR", {
       timeZone: "UTC",
@@ -47,7 +55,7 @@ function montarMeses(primeiroDia: string, ultimoDia: string): Mes[] {
       year: "numeric",
     }).format(new Date(Date.UTC(ano, mes - 1, 1)));
 
-    return { chave, rotulo, celulas };
+    return { chave, rotulo, semanas };
   });
 }
 
@@ -89,26 +97,24 @@ export function PassoData({
         <div className="space-y-10">
           {meses.map((mes) => (
             <section key={mes.chave}>
-              <h2 className="text-sm capitalize text-ink-muted">
+              {/* `capitalize` do Tailwind maiusculiza cada palavra e produziria
+                  "Agosto De 2026". Só a primeira letra deve subir. */}
+              <h2 className="text-sm text-ink-muted first-letter:uppercase">
                 {mes.rotulo}
               </h2>
 
-              <div
-                className="mt-4 grid grid-cols-7 gap-1"
-                role="grid"
-                aria-label={mes.rotulo}
-              >
+              <div className="mt-4 grid grid-cols-7 gap-1">
                 {DIAS_DA_SEMANA.map((letra, indice) => (
                   <div
                     key={`${mes.chave}-cabecalho-${indice}`}
-                    className="pb-2 text-center text-xs text-ink-faint"
+                    className="pb-2 text-center text-xs text-ink-muted"
                     aria-hidden
                   >
                     {letra}
                   </div>
                 ))}
 
-                {mes.celulas.map((dia, indice) => {
+                {mes.semanas.flat().map((dia, indice) => {
                   if (!dia) {
                     return (
                       <div
@@ -140,6 +146,8 @@ export function PassoData({
                     <Link
                       key={dia}
                       href={href({ ...params, date: dia, time: undefined })}
+                      prefetch={false}
+                      aria-label={formatDateLong(dia)}
                       aria-current={selecionado ? "date" : undefined}
                       className={cn(
                         "numeric flex aspect-square items-center justify-center border text-sm transition-colors",
